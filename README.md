@@ -1,6 +1,6 @@
 # clj-pdf-tools
 
-Community hacks for clj-pdf just better!
+A collection of general-purpose tools and snippets for building PDF documents with clj-pdf.
 
 ## Usage
 
@@ -16,8 +16,8 @@ Not sure about how to format your code? Open an issue and start a discussion.
 
 ### Contributors
 
-* Dmitri Sotnikov‏ @yogthos
-* Leon Talbot @leontalbot
+* Dmitri Sotnikov‏ [@yogthos](https://github.com/yogthos)
+* Leon Talbot [@leontalbot](https://github.com/leontalbot)
 
 
 ## License
