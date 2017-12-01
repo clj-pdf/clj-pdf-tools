@@ -4,7 +4,15 @@ A collection of general-purpose tools and snippets for building PDF documents wi
 
 ## Usage
 
-`(use 'clj-pdf-tools.core)`
+#### Graphics
+```clojure
+user=> (use 'clj-pdf-tools.graphics :reload)
+nil
+
+user=> (color-background {:color "#00b8fa" :opacity "0.9" :size :letter :orientation :landscape})
+[:svg {:under true} "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE svg><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"792\" height=\"612\"><rect x=\"0\" y=\"0\" width=\"792\" height=\"612\" fill=\"#00b8fa\" fill-opacity=\"0.9\"/></svg>"]
+```
+
 
 ## Contribute
 
