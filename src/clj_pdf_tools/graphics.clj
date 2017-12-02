@@ -1,5 +1,6 @@
 (ns clj-pdf-tools.graphics
-  (:require [clojure.java.io :as io])
+  (:require [clj-pdf.core :as pdf] 
+            [clojure.java.io :as io])
   (:import [javax.imageio ImageIO]))
 
 (def page-sizes
@@ -65,14 +66,14 @@
     :or {opacity 1 orientation :portrait size :a4}
     :as options}]
   
-  (let [svg-map (dissoc options :color :opacity :orientation :size) 
+  (let [meta-svg (dissoc options :color :opacity :orientation :size) 
         size (cond->> size
                (keyword? size) (get page-sizes)
                (= orientation :landscape) reverse)
         [width height] size]
 
     [:svg 
-     (merge {:under true} svg-map)
+     (merge {:under true} meta-svg)
      (str "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE svg>"
           "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\""
           width 
@@ -89,16 +90,17 @@
           opacity
           "\"/></svg>")]))
 
+
 (defn image-background 
   "Puts a image background on the page.
    Accepts regular graphics options and image file path"
   ([path]
    (image-background {} path))
   
-  ([graphics-map path]
+  ([meta-graphics path]
    (let [defaults {:translate [0 0] :scale [1 1] :under true} 
-         read (-> path io/resource ImageIO/read)]
+         read (pdf/load-image path (:base64 meta-graphics))]
      [:graphics 
-      (merge defaults graphics-map) 
+      (merge defaults meta-graphics) 
       (fn [g2d] (.drawImage g2d read 0 0 nil))])))
 
