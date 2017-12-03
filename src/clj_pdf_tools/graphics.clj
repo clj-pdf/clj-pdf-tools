@@ -90,17 +90,14 @@
           opacity
           "\"/></svg>")]))
 
+(defn floating-image [meta path]
+  (let [read (pdf/load-image path (:base64 meta))] 
+    [:graphics meta (fn [g2d] (.drawImage g2d read 0 0 nil))]))
 
 (defn image-background 
-  "Puts a image background on the page.
-   Accepts regular graphics options and image file path"
+  "Special case of floating-image that puts image under content"
+  ;; TODO ... and fullscreens it while preserving aspect ratio.
   ([path]
    (image-background {} path))
-  
-  ([meta-graphics path]
-   (let [defaults {:translate [0 0] :scale [1 1] :under true} 
-         read (pdf/load-image path (:base64 meta-graphics))]
-     [:graphics 
-      (merge defaults meta-graphics) 
-      (fn [g2d] (.drawImage g2d read 0 0 nil))])))
-
+  ([{:keys [page-size page-orientation]} path]
+   (floating-image {:under true} path)))

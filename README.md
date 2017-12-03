@@ -19,19 +19,24 @@ user=> (color-background {:color "#00b8fa" :opacity "0.75" :size :letter :orient
 [:svg {:under true} "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE svg><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"792\" height=\"612\"><rect x=\"0\" y=\"0\" width=\"792\" height=\"612\" fill=\"#00b8fa\" fill-opacity=\"0.9\"/></svg>"]
 ```
 
-#### Per page image background
-
-clj-pdf can set image background, but for all document. The following function allow you to set an image background for a perticular page.
+#### Floating image and per page image background
 
 This is like `[:image {} path]` except that the image is now floating over the page (and therefore is not pushing content forward) and that it is not subject to document margins. That means you can have bleeding images in your document.  
 
 ```clojure
-user=> (image-background "http://i.imgur.com/1GjPKvB.png")
-[:graphics {:translate [0 0], :scale [1 1], :under true} #object[clj_pdf_tools.graphics$image_background$fn__2361 0x6ff3051 "clj_pdf_tools.graphics$image_background$fn__2361@6ff3051"]]
+user=> (floating-image {} "http://i.imgur.com/1GjPKvB.png")
+[:graphics {} #object[clj_pdf_tools.graphics$floating_image$fn__1844 0x789fd424 "clj_pdf_tools.graphics$floating_image$fn__1844@789fd424"]]
 
 ```
-When setting `:under` to `false`, the image will float over the content. This can be interesting to use when you have a semi-transparent png. Therefore you can have "a la carte" watermarks for a perticular page.
+This can be interesting to use when you have a semi-transparent png. Therefore you can have "a la carte" watermarks for a perticular page.
 
+It is also interesting using that function to set background. Note that clj-pdf can set image background, but for all document. The following function allow you to set an image background for a perticular page:
+
+```clojure
+user=> (image-background "http://i.imgur.com/1GjPKvB.png")
+[:graphics {:under true} #object[clj_pdf_tools.graphics$image_background$fn__2361 0x6ff3051 "clj_pdf_tools.graphics$image_background$fn__2361@6ff3051"]]
+;; TODO: auto resize to page-size preserving aspect ratio and zoom or croping from center when needed.
+```
 
 ## Contribute
 
