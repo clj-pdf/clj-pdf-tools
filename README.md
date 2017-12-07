@@ -17,9 +17,9 @@ This is similar to how [hiccup](https://github.com/weavejester/hiccup) helper fu
 ## Documentation
 
 [**clj-pdf-tools.graphics**](#graphics)
---  [color-background](#color-background)
---  [floating-image](#floating-image)
---  [image-background](#image-background)
+* [color-background](#color-background)
+* [floating-image](#floating-image)
+* [image-background](#image-background)
 
 ### clj-pdf-tools.graphics
 
